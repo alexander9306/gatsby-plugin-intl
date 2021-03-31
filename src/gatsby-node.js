@@ -1,7 +1,7 @@
 const webpack = require("webpack")
 const { isMatch } = require("./util")
 
-function flattenMessages(nestedMessages, prefix = "") {
+function flattenMessagesFn(nestedMessages, prefix = "") {
   return Object.keys(nestedMessages).reduce((messages, key) => {
     let value = nestedMessages[key]
     let prefixedKey = prefix ? `${prefix}.${key}` : key
@@ -9,7 +9,7 @@ function flattenMessages(nestedMessages, prefix = "") {
     if (typeof value === "string") {
       messages[prefixedKey] = value
     } else {
-      Object.assign(messages, flattenMessages(value, prefixedKey))
+      Object.assign(messages, flattenMessagesFn(value, prefixedKey))
     }
 
     return messages
@@ -54,6 +54,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     redirect = false,
     ignoredPaths = [],
     redirectDefaultLanguageToRoot = false,
+    flattenMessages = true,
   } = pluginOptions
 
   const getMessages = (path, language) => {
@@ -61,7 +62,8 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
       // TODO load yaml here
       const messages = require(`${path}/${language}.json`)
 
-      return flattenMessages(messages)
+      if (flattenMessages) return flattenMessagesFn(messages)
+      return messages
     } catch (error) {
       if (error.code === "MODULE_NOT_FOUND") {
         process.env.NODE_ENV !== "test" &&

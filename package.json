@@ -2,7 +2,7 @@
   "name": "gatsby-plugin-react-intl",
   "description": "Gatsby plugin to add react-intl onto a site",
   "version": "3.0.0",
-  "author": "Daewoong Moon <wiziple@gmail.com>",
+  "author": "Daewoong Moon <wiziple@gmail.com> | Edited by Alexander Damaso",
   "bugs": {
     "url": "https://github.com/theowenyoung/gatsby-plugin-intl"
   },
@@ -16,7 +16,7 @@
     "picomatch": "^2.2.2",
     "process": "^0.11.10",
     "prop-types": "^15.7.2",
-    "react-intl": "^5.13.2",
+    "react-intl": "^5.15.5",
     "util": "^0.12.3"
   },
   "devDependencies": {
